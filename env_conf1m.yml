@@ -317,4 +317,5 @@ dependencies:
     - timm==0.6.12
     - werkzeug==2.2.2
     - yacs==0.1.8
-prefix: /home/atimans/mambaforge/envs/conf1m
+# prefix: /home/atimans/mambaforge/envs/conf1m
+prefix: /data/enalisn1/ylu174/
