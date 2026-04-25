@@ -4,7 +4,7 @@ channels:
   - conda-forge
 dependencies:
   - albumentations
-  - json
+  # - json
   - google-colab
   - matplotlib
   - notebook

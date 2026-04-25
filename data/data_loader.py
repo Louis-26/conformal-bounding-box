@@ -149,8 +149,40 @@ def d2_load_dataset_from_dict(
     cfg = CfgNode(cfg)
 
     if mapper is None:
-        mapper = DatasetMapper(cfg_model, is_train=train)
+        # mapper = DatasetMapper(cfg_model, is_train=train)
+        if train:
+            mapper = DatasetMapper(cfg_model, is_train=True)
+        else:
+            # Custom test-mode mapper that keeps raw 'annotations' field
+            # for conformal prediction (GT box matching, residual computation).
+            from detectron2.data import transforms as T
+            from detectron2.data import detection_utils as utils
+            import copy
+            import torch
 
+            def mapper(dataset_dict):
+                dataset_dict = copy.deepcopy(dataset_dict)
+                image = utils.read_image(
+                    dataset_dict["file_name"], format=cfg_model.INPUT.FORMAT
+                )
+                utils.check_image_size(dataset_dict, image)
+
+                aug = T.ResizeShortestEdge(
+                    short_edge_length=cfg_model.INPUT.MIN_SIZE_TEST,
+                    max_size=cfg_model.INPUT.MAX_SIZE_TEST,
+                    sample_style="choice",
+                )
+                transform = aug.get_transform(image)
+                image = transform.apply_image(image)
+                if "annotations" in dataset_dict:
+                    for anno in dataset_dict["annotations"]:
+                        anno.pop("segmentation", None)
+                        anno.pop("keypoints", None)
+                dataset_dict["image"] = torch.as_tensor(
+                    image.transpose(2, 0, 1).astype("float32")
+                )
+                # 'annotations' field is kept untouched in original image coords
+                return dataset_dict
     if train:
         logger.info("Returning train dataloader.")
         cfgt = cfg.DATALOADER.TRAIN
@@ -174,6 +206,8 @@ def d2_load_dataset_from_dict(
             num_workers=cfgt.NUM_WORKERS,
             collate_fn=cfgt.COLLATE_FN,
         )
+    
+
 
     logger.info(f"Returning dataloader for given dataset in mode {train=}.")
     return loader

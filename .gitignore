@@ -167,3 +167,11 @@ cython_debug/
 #.idea/
 
 .gitignore
+
+/git_script/
+
+/data/coco
+/data/cityscapes
+/data/bdd100k
+/checkpoints/
+/SLURM_execution/

@@ -1,6 +1,8 @@
 import sys
-sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")
-
+import os
+# sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")
+# sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),"detectron2"))
 import os
 import argparse
 import wandb

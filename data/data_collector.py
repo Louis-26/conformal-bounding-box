@@ -1,5 +1,9 @@
+import os
 import sys
-sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")
+
+_detectron_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'detectron2')
+if _detectron_path not in sys.path:
+    sys.path.insert(0, _detectron_path)
 
 import torch
 from torch import Tensor

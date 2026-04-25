@@ -1,0 +1,79 @@
+name: conf1m
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+
+dependencies:
+  # Python & CUDA stack
+  - python=3.9
+  - pip
+  - pytorch=1.13.1
+  - torchvision=0.14.1
+  - torchaudio=0.13.1
+  - pytorch-cuda=11.7
+  
+  # Core scientific
+  - numpy=1.23.*
+  - scipy=1.9.*
+  - pandas=1.5.*
+  - scikit-learn=1.1.*
+  - scikit-image=0.19.*
+  - matplotlib=3.6.*
+  - seaborn=0.12.*
+  - statsmodels=0.13.*
+  - networkx=2.8.*
+  
+  # CV / data
+  - opencv=4.6.*
+  - pillow=9.2.*
+  - imageio=2.22.*
+  - albumentations=1.3.0
+  - pycocotools=2.0.6
+  - onnx=1.12.*
+  
+  # Jupyter / notebooks
+  - notebook=6.5.*
+  - ipykernel
+  - ipython=8.6.*
+  
+  # Dev tools
+  - black=22.10.0
+  - flake8
+  - pytest
+  - autopep8
+  
+  # Utils
+  - pyyaml=6.0
+  - requests
+  - tqdm=4.64.*
+  - joblib
+  - wandb=0.13.*
+  - cython=0.29.*
+  - click=8.1.*
+
+  - pip:
+    # Detectron2 ecosystem
+    - fvcore==0.1.5.post20221122
+    - iopath==0.1.9
+    - timm==0.6.12
+    - yacs==0.1.8
+    
+    # Hydra config
+    - hydra-core==1.2.0
+    - omegaconf==2.2.3
+    - antlr4-python3-runtime==4.9.3
+    
+    # Tensorboard
+    - tensorboard==2.11.0
+    - absl-py==1.3.0
+    - protobuf==3.20.3
+    - markdown==3.4.1
+    
+    # Misc
+    - huggingface-hub==0.11.1
+    - gitpython==3.1.29
+    - portalocker==2.6.0
+    - tabulate==0.9.0
+    - termcolor==2.1.1
+    - filelock==3.8.2
