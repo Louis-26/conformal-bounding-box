@@ -1,3 +1,22 @@
+change all .py files under control/ folder
+```bash
+cd "$(git rev-parse --show-toplevel)/control"
+
+find . -name "*.py" -type f | while read -r file; do
+    sed -i 's|^sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")|# &\nsys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "detectron2"))|' "$file"
+    
+    echo "Processed: $file"
+done
+```
+
+```python
+# original
+sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")
+# new
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "detectron2"))
+```
+
+
 ## main.py
 ```python
 import sys
@@ -10,6 +29,32 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "det
 from pathlib import Path
 ```
 
+change all yaml files under config, for directory of data and output
+
+
+change bdd100k yaml files under config
+
+```bash
+cd "$(git rev-parse --show-toplevel)/config"
+
+find . -type f \( -name "*.yaml" -o -name "*.yml" \) -print0 |
+while IFS= read -r -d '' file; do
+
+    if grep -q "/media/atimans/hdd/" "$file"; then
+        sed -i -E '
+s|^([[:space:]]*OUTPUT_DIR: \&outputdir ").*/media/atimans/hdd/(output[^"]*)"$|# &\n\1./\2"|;
+s|^([[:space:]]*DIR: ").*/media/atimans/hdd/datasets"$|# &\n\1./data"|;
+' "$file"
+
+        echo "✅ Updated: $file"
+    fi
+done
+```
+
+
+
+
+for instance
 ## /config/coco_val/cfg_std_rank.yaml
 ```yaml
 # line 10
@@ -123,4 +168,22 @@ commands.py
 ```python
 # line 35-41
 # remove all conformalbb/
+```
+
+## model/qr_head.py
+```python
+# line 62 
+# original
+cfg_q = io_file.load_yaml("qr_cfg", "conformalbb/model", True)
+# new
+cfg_q = io_file.load_yaml("qr_cfg", "./model", True)
+```
+
+## model/qr_head.py
+```python
+# line 202 
+# original
+default="conformalbb/config",
+# new
+default="./config",
 ```

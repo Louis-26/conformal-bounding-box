@@ -1,0 +1,1 @@
+python main.py --config_file=cfg_cqr_rank --config_path=config/coco_val --run_collect_pred --save_file_pred --risk_control=cqr_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_class --device=cuda

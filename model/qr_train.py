@@ -199,7 +199,8 @@ def create_parser():
     parser.add_argument(
         "--config_path",
         type=str,
-        default="conformalbb/config",
+        # default="conformalbb/config",
+        default="./config",
         required=False,
         help="Path to config file to use for current run.",
     )

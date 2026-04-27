@@ -1,0 +1,460 @@
+FAILED command: python main.py --config_file=cfg_std_rank --config_path=config/coco_val --load_collect_pred=std_conf_x101fpn_std_rank_class --risk_control=std_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_std_rank_oracle --device=cuda
+Loaded YAML file from config/coco_val/cfg_std_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 20:32:04 detectron2]: Running main...
+[04/26 20:32:04 detectron2]: Using config file 'cfg_std_rank'.
+[04/26 20:32:04 detectron2]: Saving experiment files to './output/coco_val/std_conf_x101fpn_std_rank_oracle'.
+[04/26 20:32:04 detectron2]: Setting seed=6666666.
+[04/26 20:32:04 detectron2]: Requested device='cuda'.
+[04/26 20:32:04 detectron2]: Using 'cuda', 1 devices available.
+[04/26 20:32:04 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 20:32:04 detectron2]: Registered dataset 'coco_val' with detectron2.
+[04/26 20:32:04 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'evaluator_type', 'json_file']).
+[04/26 20:32:04 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 20:32:06 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 20:32:07 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 20:32:07 d2.data.datasets.coco]: Loaded 5000 images in COCO format from ./data/coco/annotations/instances_val2017.json
+[04/26 20:32:07 d2.data.build]: Removed 48 images with no usable annotations. 4952 images left.
+[04/26 20:32:08 d2.data.build]: Distribution of instances among all 80 categories:
+|   category    | #instances   |   category   | #instances   |   category    | #instances   |
+|:-------------:|:-------------|:------------:|:-------------|:-------------:|:-------------|
+|    person     | 10777        |   bicycle    | 314          |      car      | 1918         |
+|  motorcycle   | 367          |   airplane   | 143          |      bus      | 283          |
+|     train     | 190          |    truck     | 414          |     boat      | 424          |
+| traffic light | 634          | fire hydrant | 101          |   stop sign   | 75           |
+| parking meter | 60           |    bench     | 411          |     bird      | 427          |
+|      cat      | 202          |     dog      | 218          |     horse     | 272          |
+|     sheep     | 354          |     cow      | 372          |   elephant    | 252          |
+|     bear      | 71           |    zebra     | 266          |    giraffe    | 232          |
+|   backpack    | 371          |   umbrella   | 407          |    handbag    | 540          |
+|      tie      | 252          |   suitcase   | 299          |    frisbee    | 115          |
+|     skis      | 241          |  snowboard   | 69           |  sports ball  | 260          |
+|     kite      | 327          | baseball bat | 145          | baseball gl.. | 148          |
+|  skateboard   | 179          |  surfboard   | 267          | tennis racket | 225          |
+|    bottle     | 1013         |  wine glass  | 341          |      cup      | 895          |
+|     fork      | 215          |    knife     | 325          |     spoon     | 253          |
+|     bowl      | 623          |    banana    | 370          |     apple     | 236          |
+|   sandwich    | 177          |    orange    | 285          |   broccoli    | 312          |
+|    carrot     | 365          |   hot dog    | 125          |     pizza     | 284          |
+|     donut     | 328          |     cake     | 310          |     chair     | 1771         |
+|     couch     | 261          | potted plant | 342          |      bed      | 163          |
+| dining table  | 695          |    toilet    | 179          |      tv       | 288          |
+|    laptop     | 231          |    mouse     | 106          |    remote     | 283          |
+|   keyboard    | 153          |  cell phone  | 262          |   microwave   | 55           |
+|     oven      | 143          |   toaster    | 9            |     sink      | 225          |
+| refrigerator  | 126          |     book     | 1129         |     clock     | 267          |
+|     vase      | 274          |   scissors   | 36           |  teddy bear   | 190          |
+|  hair drier   | 11           |  toothbrush  | 57           |               |              |
+|     total     | 36335        |              |              |               |              |
+[04/26 20:32:08 detectron2]: Returning test dataloader.
+[04/26 20:32:08 d2.data.common]: Serializing the dataset using: <class 'detectron2.data.common.NumpySerializedList'>
+[04/26 20:32:08 d2.data.common]: Serializing 4952 elements to byte tensors and concatenating them all ...
+[04/26 20:32:08 d2.data.common]: Serialized dataset takes 19.08 MiB
+[04/26 20:32:08 detectron2]: Returning dataloader for given dataset in mode train=False.
+[04/26 20:32:08 detectron2]: Logging to wandb inactive.
+[04/26 20:32:08 detectron2]: Init risk control procedure with 'std_conf'...
+[04/26 20:32:08 detectron2]: Instantiating label set generator 'oracle'.
+[04/26 20:32:08 detectron2]: Initialized img_list and ist_list for 80 classes and 4952 images, with info for the following fields: 
+['gt_x0', 'gt_y0', 'gt_x1', 'gt_y1', 'pred_x0', 'pred_y0', 'pred_x1', 'pred_y1', 'gt_centers', 'pred_centers', 'gt_area', 'pred_area', 'pred_score', 'pred_score_all', 'pred_logits_all', 'iou', 'img_id', 'label_score', 'abs_res_x0', 'abs_res_y0', 'abs_res_x1', 'abs_res_y1', 'one_sided_res_x0', 'one_sided_res_y0', 'one_sided_res_x1', 'one_sided_res_y1'].
+[04/26 20:32:08 detectron2]: Loading existing predictions from './output/coco_val/std_conf_x101fpn_std_rank_class'.
+Loaded JSON file from ./output/coco_val/std_conf_x101fpn_std_rank_class/std_conf_x101fpn_std_rank_class_img_list.json.
+Loaded JSON file from ./output/coco_val/std_conf_x101fpn_std_rank_class/std_conf_x101fpn_std_rank_class_ist_list.json.
+[04/26 20:32:10 detectron2]: Running risk control procedure...
+[04/26 20:32:10 detectron2]: 
+            Running risk control procedure for 100 trials...
+            Calibration fraction: 0.5, alpha: 0.1,
+            box correction: rank_coord.
+            
+[04/26 20:32:52 detectron2]: 
+            Running label set procedure for 100 trials...
+            Label set strategy: oracle / OracleSet,
+            box set strategy: max, label set alpha: 0.01.
+            
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/coco_val --run_collect_pred --save_file_pred --risk_control=cqr_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_class --device=cuda
+Loaded YAML file from config/coco_val/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 21:22:50 detectron2]: Running main...
+[04/26 21:22:50 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 21:22:50 detectron2]: Saving experiment files to './output/coco_val/cqr_conf_x101fpn_cqr_rank_class'.
+[04/26 21:22:50 detectron2]: Setting seed=6666666.
+[04/26 21:22:50 detectron2]: Requested device='cuda'.
+[04/26 21:22:50 detectron2]: Using 'cuda', 1 devices available.
+[04/26 21:22:50 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 21:22:50 detectron2]: Registered dataset 'coco_val' with detectron2.
+[04/26 21:22:50 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'evaluator_type', 'json_file']).
+[04/26 21:22:50 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/coco_val --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_oracle --device=cuda
+Loaded YAML file from config/coco_val/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 21:22:55 detectron2]: Running main...
+[04/26 21:22:55 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 21:22:55 detectron2]: Saving experiment files to './output/coco_val/cqr_conf_x101fpn_cqr_rank_oracle'.
+[04/26 21:22:55 detectron2]: Setting seed=6666666.
+[04/26 21:22:55 detectron2]: Requested device='cuda'.
+[04/26 21:22:55 detectron2]: Using 'cuda', 1 devices available.
+[04/26 21:22:55 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 21:22:55 detectron2]: Registered dataset 'coco_val' with detectron2.
+[04/26 21:22:55 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'evaluator_type', 'json_file']).
+[04/26 21:22:55 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/coco_val --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=top_singleton --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_cqr_rank_top --device=cuda
+Loaded YAML file from config/coco_val/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 21:22:59 detectron2]: Running main...
+[04/26 21:22:59 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 21:22:59 detectron2]: Saving experiment files to './output/coco_val/cqr_conf_x101fpn_cqr_rank_top'.
+[04/26 21:22:59 detectron2]: Setting seed=6666666.
+[04/26 21:22:59 detectron2]: Requested device='cuda'.
+[04/26 21:22:59 detectron2]: Using 'cuda', 1 devices available.
+[04/26 21:22:59 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 21:22:59 detectron2]: Registered dataset 'coco_val' with detectron2.
+[04/26 21:22:59 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'evaluator_type', 'json_file']).
+[04/26 21:22:59 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/coco_val --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=full --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_cqr_rank_full --device=cuda
+Loaded YAML file from config/coco_val/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 21:23:04 detectron2]: Running main...
+[04/26 21:23:04 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 21:23:04 detectron2]: Saving experiment files to './output/coco_val/cqr_conf_x101fpn_cqr_rank_full'.
+[04/26 21:23:04 detectron2]: Setting seed=6666666.
+[04/26 21:23:04 detectron2]: Requested device='cuda'.
+[04/26 21:23:04 detectron2]: Using 'cuda', 1 devices available.
+[04/26 21:23:04 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 21:23:04 detectron2]: Registered dataset 'coco_val' with detectron2.
+[04/26 21:23:04 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'evaluator_type', 'json_file']).
+[04/26 21:23:04 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_ens_rank --config_path=config/cityscapes --load_collect_pred=ens_conf_x101fpn_ens_rank_class --risk_control=ens_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_ens_rank_oracle --device=cuda
+Loaded YAML file from config/cityscapes/cfg_ens_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:05:03 detectron2]: Running main...
+[04/26 22:05:03 detectron2]: Using config file 'cfg_ens_rank'.
+[04/26 22:05:03 detectron2]: Saving experiment files to './output/cityscapes/ens_conf_x101fpn_ens_rank_oracle'.
+[04/26 22:05:03 detectron2]: Setting seed=6666666.
+[04/26 22:05:03 detectron2]: Requested device='cuda'.
+[04/26 22:05:03 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:05:03 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:05:03 detectron2]: Registered dataset 'cityscapes' with detectron2.
+[04/26 22:05:03 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes']).
+[04/26 22:05:03 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:05:05 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:05:06 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:05:26 d2.data.build]: Distribution of instances among all 80 categories:
+|   category    | #instances   |   category   | #instances   |   category    | #instances   |
+|:-------------:|:-------------|:------------:|:-------------|:-------------:|:-------------|
+|    person     | 19700        |   bicycle    | 3675         |      car      | 26963        |
+|  motorcycle   | 737          |   airplane   | 0            |      bus      | 379          |
+|     train     | 168          |    truck     | 484          |     boat      | 0            |
+| traffic light | 0            | fire hydrant | 0            |   stop sign   | 0            |
+| parking meter | 0            |    bench     | 0            |     bird      | 0            |
+|      cat      | 0            |     dog      | 0            |     horse     | 0            |
+|     sheep     | 0            |     cow      | 0            |   elephant    | 0            |
+|     bear      | 0            |    zebra     | 0            |    giraffe    | 0            |
+|   backpack    | 0            |   umbrella   | 0            |    handbag    | 0            |
+|      tie      | 0            |   suitcase   | 0            |    frisbee    | 0            |
+|     skis      | 0            |  snowboard   | 0            |  sports ball  | 0            |
+|     kite      | 0            | baseball bat | 0            | baseball gl.. | 0            |
+|  skateboard   | 0            |  surfboard   | 0            | tennis racket | 0            |
+|    bottle     | 0            |  wine glass  | 0            |      cup      | 0            |
+|     fork      | 0            |    knife     | 0            |     spoon     | 0            |
+|     bowl      | 0            |    banana    | 0            |     apple     | 0            |
+|   sandwich    | 0            |    orange    | 0            |   broccoli    | 0            |
+|    carrot     | 0            |   hot dog    | 0            |     pizza     | 0            |
+|     donut     | 0            |     cake     | 0            |     chair     | 0            |
+|     couch     | 0            | potted plant | 0            |      bed      | 0            |
+| dining table  | 0            |    toilet    | 0            |      tv       | 0            |
+|    laptop     | 0            |    mouse     | 0            |    remote     | 0            |
+|   keyboard    | 0            |  cell phone  | 0            |   microwave   | 0            |
+|     oven      | 0            |   toaster    | 0            |     sink      | 0            |
+| refrigerator  | 0            |     book     | 0            |     clock     | 0            |
+|     vase      | 0            |   scissors   | 0            |  teddy bear   | 0            |
+|  hair drier   | 0            |  toothbrush  | 0            |               |              |
+|     total     | 52106        |              |              |               |              |
+[04/26 22:05:26 detectron2]: Returning test dataloader.
+[04/26 22:05:26 d2.data.common]: Serializing the dataset using: <class 'detectron2.data.common.NumpySerializedList'>
+[04/26 22:05:26 d2.data.common]: Serializing 2975 elements to byte tensors and concatenating them all ...
+[04/26 22:05:26 d2.data.common]: Serialized dataset takes 3.79 MiB
+[04/26 22:05:26 detectron2]: Returning dataloader for given dataset in mode train=False.
+[04/26 22:05:26 detectron2]: Logging to wandb inactive.
+[04/26 22:05:26 detectron2]: Init risk control procedure with 'ens_conf'...
+[04/26 22:05:26 detectron2]: Setting seed=6676666.
+[04/26 22:05:26 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl'.
+[04/26 22:05:26 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN R50-FPN'.
+[04/26 22:05:26 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl'.
+[04/26 22:05:26 detectron2]: Setting seed=6686666.
+[04/26 22:05:26 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_50_DC5_3x/137849425/model_final_68d202.pkl'.
+[04/26 22:05:28 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN R50-DC5'.
+[04/26 22:05:29 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_50_DC5_3x/137849425/model_final_68d202.pkl'.
+[04/26 22:05:29 detectron2]: Setting seed=6696666.
+[04/26 22:05:29 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_101_DC5_3x/138204841/model_final_3e0943.pkl'.
+[04/26 22:05:31 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN R101-DC5'.
+[04/26 22:05:31 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_101_DC5_3x/138204841/model_final_3e0943.pkl'.
+[04/26 22:05:31 detectron2]: Setting seed=6706666.
+[04/26 22:05:31 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_101_FPN_3x/137851257/model_final_f6e8b1.pkl'.
+[04/26 22:05:32 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN R101-FPN'.
+[04/26 22:05:32 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_R_101_FPN_3x/137851257/model_final_f6e8b1.pkl'.
+[04/26 22:05:32 detectron2]: Setting seed=6716666.
+[04/26 22:05:32 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:05:34 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:05:34 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:05:34 detectron2]: Instantiating label set generator 'oracle'.
+[04/26 22:05:34 detectron2]: Initialized img_list and ist_list for 80 classes and 2975 images, with info for the following fields: 
+['gt_x0', 'gt_y0', 'gt_x1', 'gt_y1', 'pred_x0', 'pred_y0', 'pred_x1', 'pred_y1', 'gt_centers', 'pred_centers', 'gt_area', 'pred_area', 'pred_score', 'pred_score_all', 'pred_logits_all', 'iou', 'img_id', 'label_score', 'norm_res_x0', 'norm_res_y0', 'norm_res_x1', 'norm_res_y1', 'unc_x0', 'unc_y0', 'unc_x1', 'unc_y1'].
+[04/26 22:05:34 detectron2]: Loading existing predictions from './output/cityscapes/ens_conf_x101fpn_ens_rank_class'.
+Loaded JSON file from ./output/cityscapes/ens_conf_x101fpn_ens_rank_class/ens_conf_x101fpn_ens_rank_class_img_list.json.
+Loaded JSON file from ./output/cityscapes/ens_conf_x101fpn_ens_rank_class/ens_conf_x101fpn_ens_rank_class_ist_list.json.
+[04/26 22:05:36 detectron2]: Running risk control procedure...
+[04/26 22:05:36 detectron2]: 
+            Running risk control procedure for 100 trials...
+            Calibration fraction: 0.5, alpha: 0.1,
+            box correction: rank_coord.
+            
+[04/26 22:05:54 detectron2]: 
+            Running label set procedure for 100 trials...
+            Label set strategy: oracle / OracleSet,
+            box set strategy: max, label set alpha: 0.01.
+            
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/cityscapes --run_collect_pred --save_file_pred --risk_control=cqr_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_class --device=cuda
+Loaded YAML file from config/cityscapes/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:13:52 detectron2]: Running main...
+[04/26 22:13:52 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:13:52 detectron2]: Saving experiment files to './output/cityscapes/cqr_conf_x101fpn_cqr_rank_class'.
+[04/26 22:13:52 detectron2]: Setting seed=6666666.
+[04/26 22:13:52 detectron2]: Requested device='cuda'.
+[04/26 22:13:52 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:13:52 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:13:52 detectron2]: Registered dataset 'cityscapes' with detectron2.
+[04/26 22:13:52 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes']).
+[04/26 22:13:52 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/cityscapes --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_oracle --device=cuda
+Loaded YAML file from config/cityscapes/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:13:57 detectron2]: Running main...
+[04/26 22:13:57 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:13:57 detectron2]: Saving experiment files to './output/cityscapes/cqr_conf_x101fpn_cqr_rank_oracle'.
+[04/26 22:13:57 detectron2]: Setting seed=6666666.
+[04/26 22:13:57 detectron2]: Requested device='cuda'.
+[04/26 22:13:57 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:13:57 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:13:57 detectron2]: Registered dataset 'cityscapes' with detectron2.
+[04/26 22:13:57 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes']).
+[04/26 22:13:57 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/cityscapes --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=top_singleton --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_cqr_rank_top --device=cuda
+Loaded YAML file from config/cityscapes/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:02 detectron2]: Running main...
+[04/26 22:14:02 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:14:02 detectron2]: Saving experiment files to './output/cityscapes/cqr_conf_x101fpn_cqr_rank_top'.
+[04/26 22:14:02 detectron2]: Setting seed=6666666.
+[04/26 22:14:02 detectron2]: Requested device='cuda'.
+[04/26 22:14:02 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:02 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:02 detectron2]: Registered dataset 'cityscapes' with detectron2.
+[04/26 22:14:02 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes']).
+[04/26 22:14:02 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/cityscapes --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=full --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_cqr_rank_full --device=cuda
+Loaded YAML file from config/cityscapes/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:06 detectron2]: Running main...
+[04/26 22:14:06 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:14:06 detectron2]: Saving experiment files to './output/cityscapes/cqr_conf_x101fpn_cqr_rank_full'.
+[04/26 22:14:06 detectron2]: Setting seed=6666666.
+[04/26 22:14:06 detectron2]: Requested device='cuda'.
+[04/26 22:14:07 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:07 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:07 detectron2]: Registered dataset 'cityscapes' with detectron2.
+[04/26 22:14:07 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes']).
+[04/26 22:14:07 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_std_rank --config_path=config/bdd100k_train --run_collect_pred --save_file_pred --risk_control=std_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_std_rank_class --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_std_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:11 detectron2]: Running main...
+[04/26 22:14:11 detectron2]: Using config file 'cfg_std_rank'.
+[04/26 22:14:11 detectron2]: Saving experiment files to './output/bdd100k_train/std_conf_x101fpn_std_rank_class'.
+[04/26 22:14:11 detectron2]: Setting seed=6666666.
+[04/26 22:14:11 detectron2]: Requested device='cuda'.
+[04/26 22:14:11 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:11 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:11 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:11 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:11 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:13 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:14 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_std_rank --config_path=config/bdd100k_train --load_collect_pred=std_conf_x101fpn_std_rank_class --risk_control=std_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_std_rank_oracle --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_std_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:17 detectron2]: Running main...
+[04/26 22:14:17 detectron2]: Using config file 'cfg_std_rank'.
+[04/26 22:14:17 detectron2]: Saving experiment files to './output/bdd100k_train/std_conf_x101fpn_std_rank_oracle'.
+[04/26 22:14:17 detectron2]: Setting seed=6666666.
+[04/26 22:14:17 detectron2]: Requested device='cuda'.
+[04/26 22:14:17 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:17 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:17 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:17 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:17 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:19 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:20 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_std_rank --config_path=config/bdd100k_train --load_collect_pred=std_conf_x101fpn_std_rank_class --risk_control=std_conf --alpha=0.1 --label_set=top_singleton --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_std_rank_top --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_std_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:23 detectron2]: Running main...
+[04/26 22:14:23 detectron2]: Using config file 'cfg_std_rank'.
+[04/26 22:14:23 detectron2]: Saving experiment files to './output/bdd100k_train/std_conf_x101fpn_std_rank_top'.
+[04/26 22:14:23 detectron2]: Setting seed=6666666.
+[04/26 22:14:23 detectron2]: Requested device='cuda'.
+[04/26 22:14:23 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:23 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:23 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:23 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:23 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:25 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:26 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_std_rank --config_path=config/bdd100k_train --load_collect_pred=std_conf_x101fpn_std_rank_class --risk_control=std_conf --alpha=0.1 --label_set=full --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_std_rank_full --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_std_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:29 detectron2]: Running main...
+[04/26 22:14:29 detectron2]: Using config file 'cfg_std_rank'.
+[04/26 22:14:29 detectron2]: Saving experiment files to './output/bdd100k_train/std_conf_x101fpn_std_rank_full'.
+[04/26 22:14:29 detectron2]: Setting seed=6666666.
+[04/26 22:14:29 detectron2]: Requested device='cuda'.
+[04/26 22:14:29 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:29 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:29 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:29 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:29 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:32 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:32 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_ens_rank --config_path=config/bdd100k_train --run_collect_pred --save_file_pred --risk_control=ens_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_ens_rank_class --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_ens_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:35 detectron2]: Running main...
+[04/26 22:14:35 detectron2]: Using config file 'cfg_ens_rank'.
+[04/26 22:14:35 detectron2]: Saving experiment files to './output/bdd100k_train/ens_conf_x101fpn_ens_rank_class'.
+[04/26 22:14:35 detectron2]: Setting seed=6666666.
+[04/26 22:14:35 detectron2]: Requested device='cuda'.
+[04/26 22:14:36 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:36 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:36 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:36 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:36 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:38 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:38 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_ens_rank --config_path=config/bdd100k_train --load_collect_pred=ens_conf_x101fpn_ens_rank_class --risk_control=ens_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_ens_rank_oracle --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_ens_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:41 detectron2]: Running main...
+[04/26 22:14:41 detectron2]: Using config file 'cfg_ens_rank'.
+[04/26 22:14:41 detectron2]: Saving experiment files to './output/bdd100k_train/ens_conf_x101fpn_ens_rank_oracle'.
+[04/26 22:14:41 detectron2]: Setting seed=6666666.
+[04/26 22:14:41 detectron2]: Requested device='cuda'.
+[04/26 22:14:41 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:41 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:41 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:41 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:41 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:44 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:44 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_ens_rank --config_path=config/bdd100k_train --load_collect_pred=ens_conf_x101fpn_ens_rank_class --risk_control=ens_conf --alpha=0.1 --label_set=top_singleton --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_ens_rank_top --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_ens_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:47 detectron2]: Running main...
+[04/26 22:14:47 detectron2]: Using config file 'cfg_ens_rank'.
+[04/26 22:14:47 detectron2]: Saving experiment files to './output/bdd100k_train/ens_conf_x101fpn_ens_rank_top'.
+[04/26 22:14:47 detectron2]: Setting seed=6666666.
+[04/26 22:14:47 detectron2]: Requested device='cuda'.
+[04/26 22:14:48 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:48 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:48 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:48 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:48 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:50 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:50 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_ens_rank --config_path=config/bdd100k_train --load_collect_pred=ens_conf_x101fpn_ens_rank_class --risk_control=ens_conf --alpha=0.1 --label_set=full --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_ens_rank_full --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_ens_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:53 detectron2]: Running main...
+[04/26 22:14:53 detectron2]: Using config file 'cfg_ens_rank'.
+[04/26 22:14:53 detectron2]: Saving experiment files to './output/bdd100k_train/ens_conf_x101fpn_ens_rank_full'.
+[04/26 22:14:53 detectron2]: Setting seed=6666666.
+[04/26 22:14:53 detectron2]: Requested device='cuda'.
+[04/26 22:14:54 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:14:54 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:14:54 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:14:54 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:14:54 detectron2]: Set model weights path to 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+[04/26 22:14:56 detectron2]: Constructed cfg_model file and from it built model 'Faster R-CNN X101-FPN'.
+[04/26 22:14:56 detectron2]: Loaded model weights from checkpoint at 'https://dl.fbaipublicfiles.com/detectron2/COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x/139173657/model_final_68b088.pkl'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/bdd100k_train --run_collect_pred --save_file_pred --risk_control=cqr_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_class --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:14:59 detectron2]: Running main...
+[04/26 22:14:59 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:14:59 detectron2]: Saving experiment files to './output/bdd100k_train/cqr_conf_x101fpn_cqr_rank_class'.
+[04/26 22:14:59 detectron2]: Setting seed=6666666.
+[04/26 22:14:59 detectron2]: Requested device='cuda'.
+[04/26 22:15:00 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:15:00 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:15:00 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:15:00 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:15:00 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/bdd100k_train --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=oracle --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_cqr_rank_oracle --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:15:04 detectron2]: Running main...
+[04/26 22:15:04 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:15:04 detectron2]: Saving experiment files to './output/bdd100k_train/cqr_conf_x101fpn_cqr_rank_oracle'.
+[04/26 22:15:04 detectron2]: Setting seed=6666666.
+[04/26 22:15:04 detectron2]: Requested device='cuda'.
+[04/26 22:15:04 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:15:04 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:15:04 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:15:04 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:15:04 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/bdd100k_train --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=top_singleton --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_cqr_rank_top --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:15:08 detectron2]: Running main...
+[04/26 22:15:08 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:15:08 detectron2]: Saving experiment files to './output/bdd100k_train/cqr_conf_x101fpn_cqr_rank_top'.
+[04/26 22:15:08 detectron2]: Setting seed=6666666.
+[04/26 22:15:08 detectron2]: Requested device='cuda'.
+[04/26 22:15:09 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:15:09 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:15:09 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:15:09 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:15:09 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+
+FAILED command: python main.py --config_file=cfg_cqr_rank --config_path=config/bdd100k_train --load_collect_pred=cqr_conf_x101fpn_cqr_rank_class --risk_control=cqr_conf --alpha=0.1 --label_set=full --label_alpha=0.01 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_cqr_rank_full --device=cuda
+Loaded YAML file from config/bdd100k_train/cfg_cqr_rank.yaml into <class 'detectron2.config.config.CfgNode'>.
+[04/26 22:15:13 detectron2]: Running main...
+[04/26 22:15:13 detectron2]: Using config file 'cfg_cqr_rank'.
+[04/26 22:15:13 detectron2]: Saving experiment files to './output/bdd100k_train/cqr_conf_x101fpn_cqr_rank_full'.
+[04/26 22:15:13 detectron2]: Setting seed=6666666.
+[04/26 22:15:13 detectron2]: Requested device='cuda'.
+[04/26 22:15:13 detectron2]: Using 'cuda', 1 devices available.
+[04/26 22:15:13 detectron2]: Using GPU NVIDIA A100-PCIE-40GB.
+[04/26 22:15:13 detectron2]: Registered dataset 'bdd100k_train' with detectron2.
+[04/26 22:15:13 detectron2]: Added metadata for dict_keys(['name', 'image_root', 'thing_classes', 'json_file']).
+[04/26 22:15:13 detectron2]: Set model weights path to 'checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth'.
+
+

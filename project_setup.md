@@ -1,7 +1,6 @@
 ## environment basic configuration
 python: 3.9
 cuda: 11.7
-nvcc: 
 gcc: 9.3
 
 ## step 1: set up the environment
@@ -134,9 +133,12 @@ mkdir -p output
 
 ```bash
 python main.py --config_file=cfg_std_rank --config_path=config/coco_val --run_collect_pred --save_file_pred --risk_control=std_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_std_rank_class --device=cuda
+
+
+
 ```
 
-### script of full suite of experiments 
+### ⏳script of full suite of experiments 
 ```bash
 python commands.py  # generate commands.txt
 bash run.sh  # read and run all combos
