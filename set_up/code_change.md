@@ -187,3 +187,39 @@ default="conformalbb/config",
 # new
 default="./config",
 ```
+
+## control/baseline_gaussian_yolo.py
+
+```python
+# first several lines
+# original
+sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")
+# new
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "../detectron2"))
+
+# all line regarding conformalbb, including line 472 and line 487
+# original
+default="conformalbb/config",
+# new
+default="./config",
+```
+
+config
+```bash
+# original
+  CHECKPOINT_PATH: "checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth"
+# new
+  CHECKPOINT_PATH: "checkpoints/x101fpn_train_qr_5k_postprocess.pth"
+```
+
+
+/control/classifier_sets.py
+```python
+# original
+mpiw = metrics.mean_pi_width(pi[~calib_mask])
+
+# new   
+mpiw = metrics.mean_pi_width(pi[(~calib_mask).nonzero(as_tuple=True)])
+
+```

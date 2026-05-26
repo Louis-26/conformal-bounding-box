@@ -63,7 +63,7 @@ MODEL:
   NAME: "Faster R-CNN X101-FPN"
   ID: "x101fpn"
   LOCAL_CHECKPOINT: true
-  CHECKPOINT_PATH: "checkpoints/x101fpn_train_qr_5k_postprocess/model_0002999.pth"
+  CHECKPOINT_PATH: "checkpoints/x101fpn_train_qr_5k_postprocess.pth"
   FILE: "COCO-Detection/faster_rcnn_X_101_32x8d_FPN_3x.yaml"
   DEVICE: &device "cpu"
   # set to false for EnsConf

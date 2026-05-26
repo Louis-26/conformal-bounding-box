@@ -1,6 +1,8 @@
 import sys
+import os
 # sys.path.insert(0, "/home/atimans/Desktop/project_1/conformalbb/detectron2")
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "detectron2"))
+sys.path.insert(0,os.path.join(os.path.dirname(os.path.abspath(__file__)),".."))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "../detectron2"))
 
 import os
 import argparse
@@ -467,7 +469,8 @@ def create_parser():
     parser.add_argument(
         "--config_path",
         type=str,
-        default="conformalbb/config",
+        # default="conformalbb/config",
+        default="./config",
         required=False,
         help="Path to config file to use for current run.",
     )
@@ -481,7 +484,8 @@ def create_parser():
     parser.add_argument(
         "--config_path_model",
         type=str,
-        default="conformalbb/gaussian_yolo",
+        # default="conformalbb/gaussian_yolo",
+        default="./gaussian_yolo",
         required=False,
         help="Path to config file to use for current run.",
     )

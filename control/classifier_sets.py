@@ -255,7 +255,8 @@ class LabelSet:
         nr_calib_samp = calib_mask.sum().repeat(self.nr_scores)
         cov_coord, cov_box = metrics.coverage(gt[~calib_mask], pi[~calib_mask])
         cov_area, cov_iou = metrics.stratified_coverage(gt, pi, calib_mask, ist)
-        mpiw = metrics.mean_pi_width(pi[~calib_mask])
+        # mpiw = metrics.mean_pi_width(pi[~calib_mask])
+        mpiw = metrics.mean_pi_width(pi[(~calib_mask).nonzero(as_tuple=True)])
         stretch = metrics.box_stretch(pi[~calib_mask], ist["pred_area"][~calib_mask])
 
         _, cov_box_cl = metrics.coverage(gt[mask_cl], pi[mask_cl])

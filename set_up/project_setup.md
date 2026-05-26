@@ -16,6 +16,7 @@ need to use cuda 11.7
 ```bash
 conda install -n conf1m "mkl<2024" -c conda-forge
 conda install -n conf1m -c "nvidia/label/cuda-11.7.1" cuda-nvcc cuda-cudart-dev cuda-libraries-dev cuda-nvtx
+pip install gdown
 python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
 pip install shapely
 pip install cityscapesscripts
@@ -81,31 +82,60 @@ rm -rf README license.txt
 
 
 ### download bdd100k
-prepare kaggle
+#### preliminary work
 ```bash
-mkdir -p ~/.kaggle
-cat > ~/.kaggle/kaggle.json << 'EOF'
-{"username":"YOUR_USERNAME","key":"YOUR_KEY"}
-EOF
-
-chmod 700 ~/.kaggle/kaggle.json
+cd "$(git rev-parse --show-toplevel)/data"
+conda activate conf1m
+pip install bdd100k
+pip install --upgrade GitPython
+pip install "pydantic<2.0" "scalabel==0.3.0"
 ```
 
+#### download dataset
+```bash 
+conda activate conf1m
+cd "$(git rev-parse --show-toplevel)/data"
+
+kaggle datasets download -d solesensei/solesensei_bdd100k
+unzip -q solesensei_bdd100k.zip 
+mkdir -p bdd100k_tmp/images/100k && mkdir -p bdd100k_tmp/labels
+mv bdd100k/bdd100k/images/100k/* bdd100k_tmp/images/100k/
+mv bdd100k_labels_release/bdd100k/labels/* bdd100k_tmp/labels/
+rm -rf bdd100k bdd100k_labels_release bdd100k_seg solesensei_bdd100k.zip
+
+mv bdd100k_tmp bdd100k
+
+mv bdd100k/labels/bdd100k_labels_images_train.json bdd100k/labels/det_train.json
+mv bdd100k/labels/bdd100k_labels_images_val.json bdd100k/labels/det_val.json
+```
+
+Alternatively
 ```bash
-cd $(git rev-parse --show-toplevel)/data
-mkdir -p bdd100k
-cd bdd100k
-kaggle datasets download marquis03/bdd100k
-unzip -q bdd100k.zip && rm -rf bdd100k.zip
+cd "$(git rev-parse --show-toplevel)/SLURM_execution/SLURM_script"
+sbatch data_download.sh
 
 ```
+
+
+
+#### preprocess dataset
+```bash
+cd "$(git rev-parse --show-toplevel)/data"
+python bdd100k_preprocess.py
+```
+
+Alternatively
+```bash
+cd "$(git rev-parse --show-toplevel)/SLURM_execution/SLURM_script"
+sbatch data_preprocess.sh
+```
+
 
 ## step 3: Download necessary model checkpoints
 ```bash
 cd "$(git rev-parse --show-toplevel)"
 mkdir -p checkpoints && cd checkpoints
 conda activate conf1m
-pip install gdown
 gdown --folder https://drive.google.com/drive/folders/1zzv8Q38GvwRKfDgSEgE_hrNGQ7fZCks5
 mv ./conformalod_models/* . && rm -rf ./conformalod_models
 
@@ -133,23 +163,23 @@ mkdir -p output
 
 ```bash
 python main.py --config_file=cfg_std_rank --config_path=config/coco_val --run_collect_pred --save_file_pred --risk_control=std_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_std_rank_class --device=cuda
-
-
-
 ```
 
 ### ⏳script of full suite of experiments 
+coco: ✅
+cityscapes: ⏳
+bdd100k: ⏳
 ```bash
 python commands.py  # generate commands.txt
 bash run.sh  # read and run all combos
 ```
 
-### model baseline
+### ✅model baseline
 ```bash
 python control/baseline_gaussian_yolo.py --config_file=cfg_base_gaussian_yolo --config_path=config/coco_val --run_collect_pred --save_file_pred --risk_control=gaussian_yolo --alpha=0.1 --run_risk_control --save_file_control --run_eval --save_file_eval --file_name_suffix=_base_gaussian_yolo --device=cuda
 ```
 
-### output interpretation
+### ✅output interpretation
 ```bash
 python main.py --config_file=cfg_std_rank --config_path=config/coco_val --run_collect_pred --save_file_pred --risk_control=std_conf --alpha=0.1 --label_set=class_threshold --label_alpha=0.01 --run_risk_control --save_file_control --save_label_set --run_eval --save_file_eval --file_name_suffix=_std_rank_class --device=cuda
 ```
