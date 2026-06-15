@@ -1,4 +1,4 @@
-"""
+w"""
 This script contains functions to pool the evaluation metrics into a table for easier comparison.
 Provided metrics are averaged over the correct indices (e.g., the number of trials), collected in
 a pandas DataFrame and saved to a CSV file.
